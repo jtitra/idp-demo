@@ -1,0 +1,78 @@
+# AHEAD - P3 Create Cluster
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: p3-cluster-create
+  title: AHEAD - P3 Create Cluster
+  description: Self-service front end for P3 cluster creation API
+  tags:
+    - ahead
+    - demo
+spec:
+  owner: joseph.titra@harness.io
+  type: environment
+  parameters:
+    - title: Environment Details
+      required:
+        - alias
+      properties:
+        provider:
+          title: Select Cloud Environment
+          type: string
+          enum:
+            - GCP
+            - VMware
+          ui:widget: radio
+        alias:
+          title: Cluster Name
+          type: string
+          description: Unique name for a new cluster
+          maxLength: 8
+          pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
+      dependencies:
+        provider:
+          allOf:
+            - if:
+                properties:
+                  provider:
+                    const: GCP
+              then:
+                required:
+                  - gcp_project
+                properties:
+                  gcp_project:
+                    title: GCP Project
+                    type: string
+                    description: Name of the GCP Project the cluster will be created in
+    - title: Cluster Details
+      properties:
+        control_plane_nodes:
+          title: Control Plane Nodes
+          type: number
+          description: Number of control plane nodes (default:1)
+          default: 1
+        ingress_type:
+          title: Ingress Type
+          type: string
+          description: Type of ingress controller (default:gke)
+          enum:
+            - gke
+            - ngnix
+            - istio
+          default: gke
+  steps:
+    - id: trigger
+      name: Creating Your repo for the Service
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/cd/orgs/SE_Sandbox/projects/Titra/pipelines/AHEAD_Request_New_Cluster/pipeline-studio/?storeType=INLINE
+        inputset:
+          provider: ${{ parameters.provider }}
+          alias: ${{ parameters.alias }}
+          gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
+          control_plane_nodes: ${{ parameters.control_plane_nodes }}
+          ingress_type: ${{ parameters.ingress_type }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
