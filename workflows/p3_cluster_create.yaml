@@ -60,9 +60,14 @@ spec:
             - ngnix
             - istio
           default: gke
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
   steps:
     - id: trigger
-      name: Creating Your repo for the Service
+      name: Requesting Your New Cluster
       action: trigger:harness-custom-pipeline
       input:
         url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/cd/orgs/SE_Sandbox/projects/Titra/pipelines/AHEAD_Request_New_Cluster/pipeline-studio/?storeType=INLINE
@@ -72,6 +77,7 @@ spec:
           gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
           control_plane_nodes: ${{ parameters.control_plane_nodes }}
           ingress_type: ${{ parameters.ingress_type }}
+        apikey: ${{ parameters.token }}
   output:
     links:
       - title: Pipeline Details
