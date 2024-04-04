@@ -78,6 +78,9 @@ spec:
           control_plane_nodes: ${{ parameters.control_plane_nodes }}
           ingress_type: ${{ parameters.ingress_type }}
           requestor_name: ${{ user.entity.metadata.name }}
+          requestor_display_name: ${{ user.entity.spec.profile.displayName }}
+          requestor_email: ${{ user.entity.spec.profile.email }}
+          requestor_annotations: ${{ user.entity.metadata.annotations }}
           #requestor_meta_data: ${{ json.stringify(user.entity) }}
         apikey: ${{ parameters.token }}
   output:
