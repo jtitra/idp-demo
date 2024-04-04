@@ -9,7 +9,7 @@ metadata:
     - ahead
     - demo
 spec:
-  owner: joseph.titra@harness.io
+  owner: user:default/joseph.titra
   type: environment
   parameters:
     - title: Environment Details
