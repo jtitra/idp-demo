@@ -77,6 +77,8 @@ spec:
           gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
           control_plane_nodes: ${{ parameters.control_plane_nodes }}
           ingress_type: ${{ parameters.ingress_type }}
+          requestor_name: ${{ user.entity.metadata.name }}
+          requestor_meta_data: ${{ user.entity }}
         apikey: ${{ parameters.token }}
   output:
     links:
