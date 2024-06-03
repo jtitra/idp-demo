@@ -1,0 +1,111 @@
+# Titra - Create Developer Environment
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: p3-cluster-create
+  title: Titra - Create Developer Environment
+  description: Self-service front end for P3 cluster creation API
+  tags:
+    - ahead
+    - demo
+spec:
+  owner: user:default/joseph.titra
+  type: environment
+  parameters:
+    - title: Environment Details
+      required:
+        - alias
+      properties:
+        provider:
+          title: Select Cloud Environment
+          type: string
+          enum:
+            - GCP
+            - Azure
+            - AWS
+          ui:widget: radio
+        alias:
+          title: Environment Name
+          type: string
+          description: Unique name for new environment (max: 8 characters)
+          maxLength: 8
+          pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
+      dependencies:
+        provider:
+          allOf:
+            - if:
+                properties:
+                  provider:
+                    const: GCP
+              then:
+                required:
+                  - gcp_project
+                properties:
+                  gcp_project:
+                    title: GCP Project
+                    type: string
+                    description: Name of the GCP Project the environment will be created in
+            - if:
+                properties:
+                  provider:
+                    const: Azure
+              then:
+                required:
+                  - azure_subscription
+                properties:
+                  azure_subscription:
+                    title: Azure Subscription
+                    type: string
+                    description: Name of the Azure Subscription the environment will be created in
+            - if:
+                properties:
+                  provider:
+                    const: AWS
+              then:
+                required:
+                  - aws_account
+                properties:
+                  aws_account:
+                    title: AWS Account
+                    type: string
+                    description: Name of the AWS Account the environment will be created in
+    - title: Cluster Details
+      properties:
+        control_plane_nodes:
+          title: Control Plane Nodes
+          type: number
+          description: Number of control plane nodes (default:1)
+          default: 1
+        ingress_type:
+          title: Ingress Type
+          type: string
+          description: Type of ingress controller (default:gke)
+          enum:
+            - ngnix
+            - istio
+          default: ngnix
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Requesting Your New Environment
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/cd/orgs/SE_Sandbox/projects/Titra/pipelines/AHEAD_Request_New_Cluster/pipeline-studio/?storeType=INLINE
+        inputset:
+          provider: ${{ parameters.provider }}
+          alias: ${{ parameters.alias }}
+          gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
+          azure_subscription: ${{ parameters.azure_subscription if parameters.azure_subscription else none }}
+          aws_account: ${{ parameters.aws_account if parameters.aws_account else none }}
+          control_plane_nodes: ${{ parameters.control_plane_nodes }}
+          ingress_type: ${{ parameters.ingress_type }}
+          requestor_name: ${{ user.entity.metadata.name }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
