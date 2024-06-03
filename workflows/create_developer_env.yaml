@@ -45,6 +45,9 @@ spec:
                     title: GCP Project
                     type: string
                     description: Name of the GCP Project the environment will be created in
+                    enum:
+                      - gcp_1234
+                      - gcp_5678
             - if:
                 properties:
                   provider:
@@ -57,6 +60,8 @@ spec:
                     title: Azure Subscription
                     type: string
                     description: Name of the Azure Subscription the environment will be created in
+                    enum:
+                      - az_1234
             - if:
                 properties:
                   provider:
@@ -69,6 +74,11 @@ spec:
                     title: AWS Account
                     type: string
                     description: Name of the AWS Account the environment will be created in
+                    enum:
+                      - aws_1234
+                      - aws_5678
+                      - aws_abcd
+                      - aws_efgh
     - title: Cluster Details
       properties:
         control_plane_nodes:
