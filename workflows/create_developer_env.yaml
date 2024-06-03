@@ -2,9 +2,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: p3-cluster-create
+  name: titra-create-developer-env
   title: Titra - Create Developer Environment
-  description: Self-service front end for P3 cluster creation API
+  description: Self-service front end for Developer Environment Creation
   tags:
     - ahead
     - demo
