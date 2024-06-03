@@ -6,7 +6,7 @@ metadata:
   title: Titra - Create Developer Environment
   description: Self-service front end for Developer Environment Creation
   tags:
-    - ahead
+    - beta
     - demo
 spec:
   owner: user:default/joseph.titra
