@@ -27,8 +27,8 @@ spec:
         newAppName:
           title: Application Name
           type: string
-          description: Unique name for your new application (max:10 characters)
-          maxLength: 10
+          description: Unique name for your new application (max:14 characters)
+          maxLength: 14
           pattern: '^([a-zA-Z][a-zA-Z0-9]*)(_[a-zA-Z0-9]+)*$'
       dependencies:
         provider:
