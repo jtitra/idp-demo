@@ -1,5 +1,5 @@
 # Titra - Create Developer Environment
-apiVersion: backstage.io/v1alpha1
+apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: titra-create-developer-env
