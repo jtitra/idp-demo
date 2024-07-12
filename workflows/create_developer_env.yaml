@@ -14,7 +14,7 @@ spec:
   parameters:
     - title: Environment Details
       required:
-        - alias
+        - newAppName
       properties:
         provider:
           title: Select Cloud Environment
@@ -24,10 +24,10 @@ spec:
             - Azure
             - AWS
           ui:widget: radio
-        alias:
-          title: Environment Name
+        newAppName:
+          title: Application Name
           type: string
-          description: Unique name for new environment (max:8 characters)
+          description: Unique name for your new application (max:8 characters)
           maxLength: 8
           pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
       dependencies:
@@ -104,10 +104,10 @@ spec:
       name: Requesting Your New Environment
       action: trigger:harness-custom-pipeline
       input:
-        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/cd/orgs/SE_Sandbox/projects/Titra/pipelines/AHEAD_Request_New_Cluster/pipeline-studio/?storeType=INLINE
+        url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/iacm/orgs/SE_Sandbox/projects/Titra/pipelines/Create_Repo_and_Workspace/pipeline-studio?storeType=INLINE
         inputset:
           provider: ${{ parameters.provider }}
-          alias: ${{ parameters.alias }}
+          newAppName: ${{ parameters.newAppName }}
           gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
           azure_subscription: ${{ parameters.azure_subscription if parameters.azure_subscription else none }}
           aws_account: ${{ parameters.aws_account if parameters.aws_account else none }}
