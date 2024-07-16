@@ -42,7 +42,7 @@ spec:
                   - aws_instance
                 properties:
                   aws_instance:
-                    title: Instance Type
+                    title: AWS Instance Type
                     type: string
                     description: Select the AWS Instance Type
                     enum:
@@ -58,7 +58,7 @@ spec:
                   - azure_instance
                 properties:
                   azure_instance:
-                    title: Instance Type
+                    title: Azure Instance Type
                     type: string
                     description: Select the Azure Instance Type
                     enum:
@@ -74,7 +74,7 @@ spec:
                   - gcp_instance
                 properties:
                   gcp_instance:
-                    title: Instance Type
+                    title: GCP Instance Type
                     type: string
                     description: Select the GCP Instance Type
                     enum:
