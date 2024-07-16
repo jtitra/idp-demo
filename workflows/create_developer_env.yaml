@@ -20,9 +20,9 @@ spec:
           title: Select Cloud Environment
           type: string
           enum:
-            - GCP
-            - Azure
             - AWS
+            - Azure
+            - GCP
           ui:widget: radio
         newAppName:
           title: Application Name
