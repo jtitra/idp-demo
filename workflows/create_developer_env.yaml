@@ -63,7 +63,6 @@ spec:
                     description: Select the Azure Instance Type
                     enum:
                       - B1s
-                      - B1s
                       - B1ms
             - if:
                 properties:
