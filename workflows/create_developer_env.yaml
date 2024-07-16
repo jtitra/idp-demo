@@ -109,7 +109,7 @@ spec:
         inputset:
           provider: ${{ parameters.provider }}
           newAppName: ${{ parameters.newAppName }}
-          instance_type: ${{ parameters.aws_instance if parameters.aws_instance else none }}
+          instance_type: ${{ parameters.gcp_instance if parameters.gcp_instance else parameters.azure_instance if parameters.azure_instance else parameters.aws_instance if parameters.aws_instance else none }}
           control_plane_nodes: ${{ parameters.control_plane_nodes }}
           ingress_type: ${{ parameters.ingress_type }}
           requestor_name: ${{ user.entity.metadata.name }}
