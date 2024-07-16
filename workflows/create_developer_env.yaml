@@ -36,49 +36,51 @@ spec:
             - if:
                 properties:
                   provider:
-                    const: GCP
+                    const: AWS
               then:
                 required:
-                  - gcp_project
+                  - aws_instance
                 properties:
-                  gcp_project:
-                    title: GCP Project
+                  aws_instance:
+                    title: Instance Type
                     type: string
-                    description: Name of the GCP Project the environment will be created in
+                    description: Select the AWS Instance Type
                     enum:
-                      - gcp_1234
-                      - gcp_5678
+                      - t2.micro
+                      - t3.micro
+                      - t3.small
             - if:
                 properties:
                   provider:
                     const: Azure
               then:
                 required:
-                  - azure_subscription
+                  - azure_instance
                 properties:
-                  azure_subscription:
-                    title: Azure Subscription
+                  azure_instance:
+                    title: Instance Type
                     type: string
-                    description: Name of the Azure Subscription the environment will be created in
+                    description: Select the Azure Instance Type
                     enum:
-                      - az_1234
+                      - B1s
+                      - B1s
+                      - B1ms
             - if:
                 properties:
                   provider:
-                    const: AWS
+                    const: GCP
               then:
                 required:
-                  - aws_account
+                  - gcp_instance
                 properties:
-                  aws_account:
-                    title: AWS Account
+                  gcp_instance:
+                    title: Instance Type
                     type: string
-                    description: Name of the AWS Account the environment will be created in
+                    description: Select the GCP Instance Type
                     enum:
-                      - aws_1234
-                      - aws_5678
-                      - aws_abcd
-                      - aws_efgh
+                      - f1-micro
+                      - e2-micro
+                      - e2-small
     - title: Cluster Details
       properties:
         control_plane_nodes:
@@ -108,9 +110,7 @@ spec:
         inputset:
           provider: ${{ parameters.provider }}
           newAppName: ${{ parameters.newAppName }}
-          gcp_project: ${{ parameters.gcp_project if parameters.gcp_project else none }}
-          azure_subscription: ${{ parameters.azure_subscription if parameters.azure_subscription else none }}
-          aws_account: ${{ parameters.aws_account if parameters.aws_account else none }}
+          instance_type: ${{ parameters.gcp_instance if parameters.gcp_instance else parameters.azure_instance if parameters.azure_instance else parameters.aws_instance if parameters.aws_instance else none }}
           control_plane_nodes: ${{ parameters.control_plane_nodes }}
           ingress_type: ${{ parameters.ingress_type }}
           requestor_name: ${{ user.entity.metadata.name }}
