@@ -14,9 +14,9 @@ spec:
   parameters:
     - title: Environment Details
       required:
-        - newAppName
+        - new_app_name
       properties:
-        provider:
+        cloud_provider:
           title: Select Cloud Environment
           type: string
           enum:
@@ -24,18 +24,18 @@ spec:
             - Azure
             - GCP
           ui:widget: radio
-        newAppName:
+        new_app_name:
           title: Application Name
           type: string
           description: Unique name for your new application (max:14 characters)
           maxLength: 14
           pattern: '^([a-zA-Z][a-zA-Z0-9]*)(_[a-zA-Z0-9]+)*$'
       dependencies:
-        provider:
+        cloud_provider:
           allOf:
             - if:
                 properties:
-                  provider:
+                  cloud_provider:
                     const: AWS
               then:
                 required:
@@ -51,7 +51,7 @@ spec:
                       - t3.small
             - if:
                 properties:
-                  provider:
+                  cloud_provider:
                     const: Azure
               then:
                 required:
@@ -66,7 +66,7 @@ spec:
                       - B1ms
             - if:
                 properties:
-                  provider:
+                  cloud_provider:
                     const: GCP
               then:
                 required:
@@ -80,21 +80,33 @@ spec:
                       - f1-micro
                       - e2-micro
                       - e2-small
-    - title: Cluster Details
+    - title: Application Details
       properties:
-        control_plane_nodes:
-          title: Control Plane Nodes
-          type: number
-          description: Number of control plane nodes (default:1)
-          default: 1
-        ingress_type:
-          title: Ingress Type
-          type: string
-          description: Type of ingress controller (default:gke)
-          enum:
-            - ngnix
-            - istio
-          default: ngnix
+        deploy_application:
+          title: Deploy Application
+          type: boolean
+          description: Deploy application framework on newly provisioned environment (default:false)
+          default: false
+      dependencies:
+        deploy_application:
+          allOf:
+            - if:
+                properties:
+                  deploy_application:
+                    const: true
+              then:
+                required:
+                  - application_type
+                properties:
+                  application_type:
+                    title: Application Type
+                    type: string
+                    description: Application framework to configure (default:java)
+                    enum:
+                      - python
+                      - java
+                      - dotnet
+                    default: java
         token:
           title: Harness Token
           type: string
@@ -107,11 +119,11 @@ spec:
       input:
         url: https://app.harness.io/ng/account/6_vVHzo9Qeu9fXvj-AcbCQ/module/iacm/orgs/SE_Sandbox/projects/Titra/pipelines/Create_Repo_and_Workspace/pipeline-studio?storeType=INLINE
         inputset:
-          provider: ${{ parameters.provider }}
-          newAppName: ${{ parameters.newAppName }}
+          cloud_provider: ${{ parameters.cloud_provider }}
+          new_app_name: ${{ parameters.new_app_name }}
           instance_type: ${{ parameters.aws_instance if parameters.aws_instance else none }}
-          control_plane_nodes: ${{ parameters.control_plane_nodes }}
-          ingress_type: ${{ parameters.ingress_type }}
+          deploy_application: ${{ parameters.deploy_application }}
+          application_type: ${{ parameters.application_type }}
           requestor_name: ${{ user.entity.metadata.name }}
         apikey: ${{ parameters.token }}
   output:
