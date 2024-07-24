@@ -85,28 +85,18 @@ spec:
         deploy_application:
           title: Deploy Application
           type: boolean
-          description: Deploy application framework on newly provisioned environment (default:false)
-          default: false
-      dependencies:
-        deploy_application:
-          allOf:
-            - if:
-                properties:
-                  deploy_application:
-                    const: true
-              then:
-                required:
-                  - application_type
-                properties:
-                  application_type:
-                    title: Application Type
-                    type: string
-                    description: Application framework to configure (default:java)
-                    enum:
-                      - python
-                      - java
-                      - dotnet
-                    default: java
+          description: Deploy application framework on newly provisioned environment (default:true)
+          default: true
+        application_type:
+          title: Application Type
+          type: string
+          description: Application framework to configure (default:java)
+          enum:
+            - python
+            - java
+            - dotnet
+            - none
+          default: java
         token:
           title: Harness Token
           type: string
