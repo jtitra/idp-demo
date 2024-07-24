@@ -84,8 +84,12 @@ spec:
       properties:
         deploy_application:
           title: Deploy Application
-          type: boolean
           description: Deploy application framework on newly provisioned environment (default:true)
+          type: string
+          enum:
+            - true
+            - false
+          ui:widget: radio
           default: true
         application_type:
           title: Application Type
