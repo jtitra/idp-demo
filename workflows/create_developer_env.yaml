@@ -87,10 +87,10 @@ spec:
           description: Deploy application framework on newly provisioned environment (default:true)
           type: string
           enum:
-            - true
-            - false
+            - "true"
+            - "false"
           ui:widget: radio
-          default: true
+          default: "true"
         application_type:
           title: Application Type
           type: string
