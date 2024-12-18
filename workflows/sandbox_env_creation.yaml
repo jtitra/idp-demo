@@ -17,7 +17,7 @@ spec:
         - harness_project
         - cluster_name
       properties:
-        github_repo:
+        harness_project:
           type: string
           ui:field: SelectFieldFromApi
           ui:options:
