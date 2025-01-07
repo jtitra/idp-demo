@@ -55,7 +55,7 @@ spec:
       name: Requesting Your New Environment
       action: trigger:harness-custom-pipeline
       input:
-        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/Global_Payments_IaCM_Demo/pipeline-studio/?storeType=INLINE
+        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/IDP_IaCM_Demo/pipeline-studio/?storeType=INLINE
         inputset:
           cloud_provider: ${{ parameters.cloud_provider }}
           cluster_name: ${{ parameters.cluster_name }}
