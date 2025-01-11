@@ -4,6 +4,7 @@ metadata:
   name: provision-react-app
   title: Provision a New React Application
   description: Creates a new React service using standardized application patterns
+  icon: nodejs
   tags:
     - react
 spec:
