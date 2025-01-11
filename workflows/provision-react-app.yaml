@@ -13,25 +13,17 @@ spec:
   parameters:
     - title: Provide details for the application you want to create
       required:
-        - repo_name
-        - repo_description
-        - repo_owner
+        - app_name
+        - app_description
       properties:
-        repo_name:
+        app_name:
           title: Application Name
           type: string
           description: Name of the application
-        repo_description:
+        app_description:
           title: Description of the new Application
           type: string
           description: Description of the application
-        repo_owner:
-          title: Select the owner of the application
-          type: string
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
         token:
           title: Harness Token
           type: string
@@ -44,9 +36,9 @@ spec:
       input:
         url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/Onboard_React_Application/pipeline-studio?storeType=INLINE
         inputset:
-          repo_name: ${{ parameters.repo_name }}
-          repo_description: ${{ parameters.repo_description }}
-          repo_owner: ${{ parameters.repo_owner }}
+          app_name: ${{ parameters.app_name }}
+          app_description: ${{ parameters.app_description }}
+          app_owner: ${{ user.entity.metadata.name }}
         apikey: ${{ parameters.token }}
   output:
     links:
