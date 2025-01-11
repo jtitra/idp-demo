@@ -1,0 +1,53 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: provision-react-app
+  title: Provision a New React Application
+  description: Creates a new React service using standardized application patterns
+  tags:
+    - react
+spec:
+  owner: joseph.titra@harness.io
+  type: service
+  parameters:
+    - title: Provide details for the application you want to create
+      required:
+        - repo_name
+        - repo_description
+        - repo_owner
+      properties:
+        repo_name:
+          title: Application Name
+          type: string
+          description: Name of the application
+        repo_description:
+          title: Description of the new Application
+          type: string
+          description: Description of the application
+        repo_owner:
+          title: Select the owner of the application
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Provision a New Application
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/Onboard_React_Application/pipeline-studio?storeType=INLINE
+        inputset:
+          repo_name: ${{ parameters.repo_name }}
+          repo_description: ${{ parameters.repo_description }}
+          repo_owner: ${{ parameters.repo_owner }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
