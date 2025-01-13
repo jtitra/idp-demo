@@ -38,7 +38,7 @@ spec:
         inputset:
           app_name: ${{ parameters.app_name }}
           app_description: ${{ parameters.app_description }}
-          app_owner: ${{ user.entity.metadata.name }}
+          app_owner: ${{ user.entity.spec.profile.email }}
         apikey: ${{ parameters.token }}
   output:
     links:
