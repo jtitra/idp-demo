@@ -14,7 +14,7 @@ spec:
   parameters:
     - title: Environment Details
       required:
-        - cluster_name
+        - bucket_name
       properties:
         cloud_provider:
           title: Select Cloud Environment
@@ -24,8 +24,8 @@ spec:
             - Azure
             - AWS
           ui:widget: radio
-        cluster_name:
-          title: K8s Cluster Name
+        bucket_name:
+          title: Cloud Bucket Name
           type: string
           description: Unique name for new K8s cluster (max:18 characters)
           maxLength: 18
@@ -58,7 +58,7 @@ spec:
         url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/IDP_IaCM_Demo/pipeline-studio/?storeType=INLINE
         inputset:
           cloud_provider: ${{ parameters.cloud_provider }}
-          cluster_name: ${{ parameters.cluster_name }}
+          bucket_name: ${{ parameters.bucket_name }}
           requestor_name: ${{ user.entity.metadata.name }}
         apikey: ${{ parameters.token }}
   output:
