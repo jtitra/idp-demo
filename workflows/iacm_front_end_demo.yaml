@@ -41,7 +41,7 @@ spec:
       name: Requesting Your New Environment
       action: trigger:harness-custom-pipeline
       input:
-        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/IDP_IaCM_Demo/pipeline-studio/?storeType=INLINE
+        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/demo/projects/Reference_Architecture/pipelines/IDP_IaCM_Demo/pipeline-studio?storeType=INLINE
         inputset:
           cloud_provider: ${{ parameters.cloud_provider }}
           bucket_name: ${{ parameters.bucket_name }}
