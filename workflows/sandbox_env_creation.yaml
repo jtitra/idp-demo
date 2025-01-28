@@ -5,6 +5,7 @@ metadata:
   name: sandbox_env_creation
   title: Sandbox Environment Creation
   description: Self-service front end offering for short-lived sandbox environments
+  icon: app-kubernetes
   tags:
     - beta
     - hidden
