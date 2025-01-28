@@ -28,7 +28,7 @@ spec:
         bucket_name:
           title: Cloud Bucket Name
           type: string
-          description: Unique name for new K8s cluster (max:18 characters)
+          description: Unique name for new bucket (max:18 characters)
           maxLength: 18
           pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
         token:
