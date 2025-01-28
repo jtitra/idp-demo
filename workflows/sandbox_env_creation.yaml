@@ -8,7 +8,7 @@ metadata:
   icon: app-kubernetes
   tags:
     - beta
-    - hidden
+    - demo
 spec:
   owner: user:default/joseph.titra
   type: environment
