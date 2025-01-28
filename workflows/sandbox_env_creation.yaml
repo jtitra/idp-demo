@@ -3,7 +3,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: sandbox_env_creation
-  title: Titra - Sandbox Environment Creation
+  title: Sandbox Environment Creation
   description: Self-service front end offering for short-lived sandbox environments
   tags:
     - beta
@@ -17,15 +17,6 @@ spec:
         - harness_project
         - cluster_name
       properties:
-        harness_project:
-          type: string
-          ui:field: SelectFieldFromApi
-          ui:options:
-            title: Harness Project
-            description: Pick one of the Harness projects you are an Admin of.
-            placeholder: "Choose a Harness Project"
-            path: proxy/project-admin/user_admin_projects?user_email=${{ user.entity.spec.profile.email }}
-            valueSelector: admin_projects
         cloud_provider:
           title: Select Cloud Environment
           type: string
@@ -65,7 +56,7 @@ spec:
       name: Requesting Your New Environment
       action: trigger:harness-custom-pipeline
       input:
-        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/Global_Payments_IaCM_Demo/pipeline-studio/?storeType=INLINE
+        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/demo/projects/Reference_Architecture/pipelines/IDP_IaCM_CI_CD/pipeline-studio/?storeType=INLINE
         inputset:
           cloud_provider: ${{ parameters.cloud_provider }}
           cluster_name: ${{ parameters.cluster_name }}
