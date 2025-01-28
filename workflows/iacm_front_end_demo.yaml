@@ -1,10 +1,11 @@
-# SE - Create K8s Cluster
+# SE - Create Cloud Bucket
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: iacm_front_end_demo
   title: Titra - IaCM Front End Demo
   description: Self-service front end offering for IaCM
+  icon: service-terraform
   tags:
     - beta
     - demo
@@ -30,21 +31,6 @@ spec:
           description: Unique name for new K8s cluster (max:18 characters)
           maxLength: 18
           pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
-    - title: Cluster Details
-      properties:
-        control_plane_nodes:
-          title: Control Plane Nodes
-          type: number
-          description: Number of control plane nodes (default:1)
-          default: 1
-        ingress_type:
-          title: Ingress Type
-          type: string
-          description: Type of ingress controller (default:ngnix)
-          enum:
-            - ngnix
-            - istio
-          default: ngnix
         token:
           title: Harness Token
           type: string
