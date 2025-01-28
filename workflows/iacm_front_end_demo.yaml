@@ -3,7 +3,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: iacm_front_end_demo
-  title: Titra - IaCM Front End Demo
+  title: IaCM Front End Demo
   description: Self-service front end offering for IaCM
   icon: service-terraform
   tags:
