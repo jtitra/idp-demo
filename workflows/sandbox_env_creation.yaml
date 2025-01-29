@@ -15,7 +15,6 @@ spec:
   parameters:
     - title: Environment Details
       required:
-        - harness_project
         - cluster_name
       properties:
         cloud_provider:
