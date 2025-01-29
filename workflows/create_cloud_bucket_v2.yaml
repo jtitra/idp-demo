@@ -95,6 +95,17 @@ spec:
                       - Nearline
                       - Coldline
                       - Archive
+    - title: Bucket Access
+      properties:
+        bucket_access:
+          title: Public Access
+          description: Allow public access? (requires additional approval)
+          type: string
+          enum:
+            - No
+            - Yes
+          ui:widget: radio
+          default: No
         token:
           title: Harness Token
           type: string
