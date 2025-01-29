@@ -1,0 +1,117 @@
+# Titra - Create Cloud Bucket
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: titra_create_cloud_bucket
+  title: Titra - Create Cloud Bucket
+  description: Self-service front end offering for IaCM
+  icon: service-terraform
+  tags:
+    - beta
+    - hidden
+spec:
+  owner: user:default/joseph.titra
+  type: environment
+  parameters:
+    - title: Environment Details
+      required:
+        - bucket_name
+      properties:
+        cloud_provider:
+          title: Select Cloud Environment
+          type: string
+          enum:
+            - GCP
+            - Azure
+            - AWS
+          ui:widget: radio
+        bucket_name:
+          title: Cloud Bucket Name
+          type: string
+          description: Unique name for new bucket (max:18 characters)
+          maxLength: 18
+          pattern: '^([a-zA-Z][a-zA-Z0-9]*)(-[a-zA-Z0-9]+)*$'
+      dependencies:
+        cloud_provider:
+          allOf:
+            - if:
+                properties:
+                  cloud_provider:
+                    const: AWS
+              then:
+                required:
+                  - storage_tier
+                properties:
+                  storage_tier:
+                    title: AWS S3 Storage Tier
+                    type: string
+                    description: Select the Bucket Storage Tier
+                    enum:
+                      - Standard
+                      - Intelligent-Tiering
+                      - Standard-IA
+                      - One Zone-IA
+                      - Glacier
+                      - Glacier Deep Archive
+            - if:
+                properties:
+                  cloud_provider:
+                    const: Azure
+              then:
+                required:
+                  - storage_type
+                  - storage_tier
+                properties:
+                  storage_type:
+                    title: Azure Blob Storage Type
+                    type: string
+                    description: Select the Bucket Storage Type
+                    enum:
+                      - Block Blobs
+                      - Append Blobs
+                      - Page Blobs
+                  storage_tier:
+                    title: Azure Blob Storage Tier
+                    type: string
+                    description: Select the Bucket Storage Tier
+                    enum:
+                      - Hot
+                      - Cool
+                      - Archive
+            - if:
+                properties:
+                  cloud_provider:
+                    const: GCP
+              then:
+                required:
+                  - storage_tier
+                properties:
+                  storage_tier:
+                    title: Google Cloud Storage Tier
+                    type: string
+                    description: Select the Bucket Storage Tier
+                    enum:
+                      - Standard
+                      - Nearline
+                      - Coldline
+                      - Archive
+        token:
+          title: Harness Token
+          type: string
+          ui:widget: password
+          ui:field: HarnessAuthToken
+  steps:
+    - id: trigger
+      name: Requesting Your New Environment
+      action: trigger:harness-custom-pipeline
+      input:
+        url: https://app.harness.io/ng/account/EeRjnXTnS4GrLG5VNNJZUw/all/orgs/sandbox/projects/Titra/pipelines/IDP_IaCM_Demo/pipeline-studio?storeType=INLINE
+        inputset:
+          cloud_provider: ${{ parameters.cloud_provider }}
+          bucket_name: ${{ parameters.bucket_name }}
+          requestor_name: ${{ user.entity.metadata.name }}
+        apikey: ${{ parameters.token }}
+  output:
+    links:
+      - title: Pipeline Details
+        url: ${{ steps.trigger.output.PipelineUrl }}
