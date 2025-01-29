@@ -120,6 +120,8 @@ spec:
         inputset:
           cloud_provider: ${{ parameters.cloud_provider }}
           bucket_name: ${{ parameters.bucket_name }}
+          storage_tier: ${{ parameters.storage_tier }}
+          storage_type: ${{ parameters.storage_type if parameters.storage_type else none }}
           requestor_name: ${{ user.entity.metadata.name }}
         apikey: ${{ parameters.token }}
   output:
